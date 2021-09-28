@@ -2,9 +2,14 @@ import random
 
 from audiomath import Sound, Player, Stack, Concatenate, StretchAndShift
 
+
+# Função para duplicar os canais
+
 def duplicarCanais (som):
     som *= [1.0,1.0]
     return som
+
+#Função para limitar os canais
 
 def limitarCanais (som):
     som = som[:,:2]
@@ -23,6 +28,8 @@ paramFreq = float(input("Digite a frequencia da aquisição em HZ: "))
 
 estimulo01 = Sound('Ba.wav')
 estimulo02 = Sound('DABase.wav')
+
+#Informações dos arquivos origem
 
 print("Informações dos estimulos pré manipulação: ", estimulo01, estimulo02)
 
@@ -53,14 +60,12 @@ estimulo02.TimeStretch(speed=((estimulo02.duration*1000)/paramTempo))
 estimulo01 = (paramISI/1000) % estimulo01
 estimulo02 = (paramISI/1000) % estimulo02
 
-#RiseDecay - A Implementar
 
-estimulo01 = estimulo01.Fade((paramHD/1000),(paramHD/1000))
-estimulo02 = estimulo02.Fade((paramHD/1000),(paramHD/1000))
-
-#Informaçoes dos audios pré-Concatenização
+#Informaçoes dos audios após tratamento.
 
 print("Informações dos estimulos pós manipulação: ", estimulo01, estimulo02)
+
+#Criação de lista para armazenamento de faixa unica.
 
 faixafinal = []
 
@@ -72,8 +77,12 @@ for i in range (int(paramQuant*(1-paramProp))):
 
 random.shuffle(faixafinal)
 
+#Reprodução pelo própio código
+
 #for i in range (int(paramQuant)):
 #    faixafinal[i].Play()
+
+#Armazenamento em disco.
 
 AmostraSalva = Sound(fs=paramFreq)
 
